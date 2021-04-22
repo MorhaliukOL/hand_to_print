@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+
+<body> 
+    <div style='text-align: center;'>
+      <h1>Convert handwriting to digital text!</h1>
+      <br>
+      <h2>Select File</h2>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <b><p style='color:rgb(241, 20, 20)'>{{ message }}</p></b>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form method=post enctype=multipart/form-data>
+        <input type=file name=file style='font-size: large;'>
+        <input type=submit value=Upload style='font-size: large;'>
+      </form>
+
+      <br>
+      {% if data %}
+        <textarea name="text" cols="50" rows="5", style='font-size: large;'>{{ data }}</textarea>
+      {% endif %}
+    </div>
+</body>
+
+</html>

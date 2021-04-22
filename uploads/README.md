@@ -1,0 +1,1 @@
+### Temporary directory to upload images.
