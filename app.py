@@ -9,6 +9,11 @@ from infer import get_text_from_img
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig())
+# preventing error:
+# "Failed to get convolution algorithm. 
+# This is probably because cuDNN failed to initialize, 
+# so try looking to see if a warning log message was printed above."
+os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 
 CWD = os.getcwd()
 UPLOAD_FOLDER = os.path.join(CWD, 'uploads')
@@ -41,7 +46,7 @@ def upload_file():
             img_path = os.path.join(UPLOAD_FOLDER, filename)
             file.save(img_path)
 
-            text, _ = get_text_from_img(img_path, CHARLIST_PATH, MODEL_PATH)
+            text = get_text_from_img(img_path, CHARLIST_PATH, MODEL_PATH)
             os.remove(img_path)
             return render_template('home.html', data=text)
         else:
